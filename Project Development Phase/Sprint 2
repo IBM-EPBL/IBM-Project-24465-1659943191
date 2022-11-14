@@ -15,7 +15,7 @@ pinMode(gled,OUTPUT);
 pinMode(buzzer,OUTPUT);
 pinMode(ss,INPUT);
 Serial.begin(9600);
-lcd.begin(16,2);
+l.begin(16,2);
 }
 
 void loop()
