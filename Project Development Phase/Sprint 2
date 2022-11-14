@@ -1,0 +1,53 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal l(5,6,8,9,10,11);
+  
+int rled = 2;
+int gled = 3;
+int buzzer = 4;
+int ss = A0;
+int st = 400;
+
+void setup()
+{
+pinMode(rled, OUTPUT);
+pinMode(gled,OUTPUT);
+pinMode(buzzer,OUTPUT);
+pinMode(ss,INPUT);
+Serial.begin(9600);
+lcd.begin(16,2);
+}
+
+void loop()
+{
+  int anV = analogRead(ss);
+  Serial.print(anV);
+  if(anV>st)
+  {
+    digitalWrite(rled,HIGH);
+    digitalWrite(gled,LOW);
+    tone(buzzer,1000,10000);
+    l.clear();
+    l.setCursor(0,1);
+    l.print("ALERT");
+    delay(2000);
+    l.clear();
+    l.setCursor(0,1);
+    l.print("EVACUATE");
+    delay(2000);
+  }
+  else
+  {
+    digitalWrite(gled,HIGH);
+    digitalWrite(rled,LOW);
+    noTone(buzzer);
+    l.clear();
+    l.setCursor(0,0);
+    l.print("SAFE");
+    delay(2000);
+    l.clear();
+    l.setCursor(0,1);
+    l.print("ALL CLEAR");
+    delay(2000);
+  }      
+}
